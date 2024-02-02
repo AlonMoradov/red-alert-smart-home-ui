@@ -231,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         const Spacer(),
         Container(
-          height: 80,
+          height: 120,
           width: double.infinity,
           margin: const EdgeInsets.all(0),
           decoration: BoxDecoration(
