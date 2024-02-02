@@ -39,7 +39,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var baseUrl = "http://127.0.0.1:5000";
+  var baseUrl = "http://redalert.local:5000";
   var city = "";
   var userId = "";
   var macAddress = "";
@@ -104,6 +104,13 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       cities = data;
     });
+  }
+
+  Future reconnect() async {
+    var url = Uri.parse("$baseUrl/reconnect");
+    var response = await http.get(url);
+    var data = jsonDecode(response.body);
+    getDetails();
   }
 
   void getDetails() {
@@ -238,6 +245,13 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // reset button
+              TextButton(
+                onPressed: () {
+                  getDetails();
+                },
+                child: const Text("חיבור מחדש"),
+              ),
               Text(ipAddress),
               Text(macAddress),
               userId == "" ? const CircularProgressIndicator() : Text(userId),
