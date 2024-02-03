@@ -39,7 +39,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var baseUrl = "http://redalert.local:5000";
+  var baseUrl = "http://redalert.local:5555";
+  // var baseUrl = "http://127.0.0.1:5555";
   var city = "";
   var userId = "";
   var macAddress = "";
@@ -126,7 +127,9 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (_) {
         var showedCities = cities;
         return Scaffold(
-            appBar: AppBar(title: const Text("עדכן עיר")),
+            appBar: AppBar(
+                title: const Text("עדכן עיר"),
+                backgroundColor: Theme.of(context).colorScheme.primary),
             body: StatefulBuilder(
               builder: (context, setStatee) => SingleChildScrollView(
                 child: Center(
@@ -168,7 +171,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           itemCount: showedCities.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              title: Text(showedCities[index]['label']),
+                              title: Text(showedCities[index]['label'],
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary)),
                               onTap: () {
                                 setCity(showedCities[index]['label']);
                                 Navigator.pop(context);
@@ -216,7 +224,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center),
             Text(city,
                 style:
-                    const TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                    const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center),
           ],
         ),
         const SizedBox(
@@ -228,6 +237,23 @@ class _MyHomePageState extends State<MyHomePage> {
             getDetails();
           },
           child: const Text("עדכן עיר"),
+        ),
+        const Spacer(),
+        // abstracted shape of a map marker
+        Container(
+          height: 200,
+          width: 200,
+          decoration: const BoxDecoration(
+            color: Colors.red,
+            shape: BoxShape.circle,
+          ),
+          child: const Center(
+            child: Icon(
+              Icons.location_on,
+              color: Colors.white,
+              size: 50,
+            ),
+          ),
         ),
         const Spacer(),
         Container(
