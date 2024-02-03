@@ -239,22 +239,46 @@ class _MyHomePageState extends State<MyHomePage> {
           child: const Text("עדכן עיר"),
         ),
         const Spacer(),
-        // abstracted shape of a map marker
-        Container(
-          height: 200,
-          width: 200,
-          decoration: const BoxDecoration(
-            color: Colors.red,
-            shape: BoxShape.circle,
-          ),
-          child: const Center(
-            child: Icon(
-              Icons.location_on,
-              color: Colors.white,
-              size: 50,
-            ),
-          ),
-        ),
+        userId == ""
+            ? Column(children: [
+                const Text("יש ללחוץ על הכפתור במגשר ולאחר מכן על חיבור מחדש"),
+                const SizedBox(
+                  height: 20,
+                ),
+                const CircularProgressIndicator.adaptive(),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextButton(
+                  onPressed: () {
+                    getUserId();
+                  },
+                  style: TextButton.styleFrom(
+                    fixedSize: const Size(200, 50),
+                    primary: Colors.white,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                  ),
+                  child: const Text("חיבור מחדש"),
+                ),
+              ])
+            : Container(
+                height: 200,
+                width: 200,
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.location_on,
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                ),
+              ),
         const Spacer(),
         Container(
           height: 120,
@@ -280,7 +304,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Text(ipAddress),
               Text(macAddress),
-              userId == "" ? const CircularProgressIndicator() : Text(userId),
+              userId == ""
+                  ? const Text(
+                      "יש ללחוץ על הכפתור במגשר ולאחר מכן לרענן את הדף")
+                  : Text(userId),
               const SizedBox(
                 height: 20,
               ),
